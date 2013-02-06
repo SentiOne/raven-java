@@ -23,6 +23,8 @@ public class SentryAppender extends AppenderSkeleton {
     protected Client client;
     protected boolean messageCompressionEnabled = true;
     private List<JSONProcessor> jsonProcessors = Collections.emptyList();
+    
+    private static final int MAX_MSG_LENGTH = 1000;
 
     public SentryAppender() {
         initMDC();
@@ -110,7 +112,7 @@ public class SentryAppender extends AppenderSkeleton {
             long timestamp = event.getTimeStamp();
 
             // get the log and info about the log.
-            String message = event.getRenderedMessage();
+            String message = getSafeMessage(event.getRenderedMessage());
             String logger = event.getLogger().getName();
             int level = (event.getLevel().toInt() / 1000);  //Need to divide by 1000 to keep consistent with sentry
             String culprit = event.getLoggerName();
@@ -136,6 +138,12 @@ public class SentryAppender extends AppenderSkeleton {
             }
         } finally {
             mdc.removeThreadLoggingEvent();
+        }
+    }
+    
+    protected String getSafeMessage(String msg){
+        if (msg.length() > MAX_MSG_LENGTH){
+            return msg.substring(0,MAX_MSG_LENGTH/2) + "..." + msg.substring(msg.length() - (MAX_MSG_LENGTH/2 - 3),msg.length());
         }
     }
 
