@@ -3,13 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-<distributionManagement>
-  <snapshotRepository>
-    <id>chimeo_dep</id>
-    <url>http://nexus.senti1.com/content/repositories/chimeo_dep</url>
-  </snapshotRepository>
-</distributionManagement>
-
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.kencochrane</groupId>
@@ -19,6 +12,14 @@
     <name>raven-all</name>
     <description>Java Raven client and loggers.</description>
     <url>http://sentry.readthedocs.org/en/latest/client/index.html</url>
+
+<distributionManagement>
+  <snapshotRepository>
+    <id>chimeo_dep</id>
+    <url>http://nexus.senti1.com/content/repositories/chimeo_dep</url>
+  </snapshotRepository>
+</distributionManagement>
+
 
     <licenses>
         <license>
