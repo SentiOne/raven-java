@@ -13,13 +13,6 @@
     <description>Java Raven client and loggers.</description>
     <url>http://sentry.readthedocs.org/en/latest/client/index.html</url>
 
-<distributionManagement>
-  <snapshotRepository>
-    <id>chimeo_dep</id>
-    <url>http://nexus.senti1.com/content/repositories/chimeo_dep</url>
-  </snapshotRepository>
-</distributionManagement>
-
 
     <licenses>
         <license>
