@@ -144,6 +144,8 @@ public class SentryAppender extends AppenderSkeleton {
     protected String getSafeMessage(String msg){
         if (msg.length() > MAX_MSG_LENGTH){
             return msg.substring(0,MAX_MSG_LENGTH/2) + "..." + msg.substring(msg.length() - (MAX_MSG_LENGTH/2 - 3),msg.length());
+        } else {
+            return msg;
         }
     }
 
