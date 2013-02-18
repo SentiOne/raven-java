@@ -3,6 +3,8 @@ package net.kencochrane.raven.log4j;
 import org.apache.log4j.AsyncAppender;
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.Map;
+
 /**
  * A Log4J appender that sends events asynchronously to Sentry.
  * <p>
@@ -73,4 +75,11 @@ public class AsyncSentryAppender extends AsyncAppender {
         super.activateOptions();
     }
 
+	public Map<String, String> getTags() {
+		return appender.getTags();
+	}
+
+	public void setTags(Map<String, String> tags) {
+		appender.setTags(tags);
+	}
 }

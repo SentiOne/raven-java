@@ -11,6 +11,7 @@ import org.apache.log4j.spi.ThrowableInformation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Log4J appender that will send messages to Sentry.
@@ -23,6 +24,7 @@ public class SentryAppender extends AppenderSkeleton {
     protected Client client;
     protected boolean messageCompressionEnabled = true;
     private List<JSONProcessor> jsonProcessors = Collections.emptyList();
+	private Map<String, String> tags;
     
     private static final int MAX_MSG_LENGTH = 1000;
 
@@ -128,9 +130,9 @@ public class SentryAppender extends AppenderSkeleton {
 
             // send the message to the sentry server
             if (info == null) {
-                client.captureMessage(message, timestamp, logger, level, culprit);
+                client.captureMessage(message, timestamp, logger, level, culprit, tags);
             } else {
-                client.captureException(message, timestamp, logger, level, culprit, info.getThrowable());
+                client.captureException(message, timestamp, logger, level, culprit, info.getThrowable(), tags);
             }
 
             if (!async) {
@@ -180,4 +182,11 @@ public class SentryAppender extends AppenderSkeleton {
         RavenMDC.setInstance(new Log4jMDC());
     }
 
+	public Map<String, String> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, String> tags) {
+		this.tags = tags;
+	}
 }
